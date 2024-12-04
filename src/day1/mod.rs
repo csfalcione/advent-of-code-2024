@@ -1,4 +1,4 @@
-use std::path::Path;
+use std::{collections::BTreeMap, path::Path};
 
 use regex::Regex;
 
@@ -9,6 +9,21 @@ pub fn solve_part_1(mut left_list: Vec<i32>, mut right_list: Vec<i32>) -> i32 {
         .iter()
         .zip(right_list.iter())
         .map(|(left, right)| (right - left).abs())
+        .sum()
+}
+
+pub fn solve_part_2(left_list: Vec<i32>, right_list: Vec<i32>) -> i32 {
+    let mut right_freq_map: BTreeMap<i32, usize> = BTreeMap::new();
+    right_list.iter().for_each(|&location_id| {
+        right_freq_map
+            .entry(location_id)
+            .and_modify(|count| *count += 1)
+            .or_insert(1);
+    });
+
+    left_list
+        .iter()
+        .map(|&location_id| location_id * *(right_freq_map.get(&location_id).unwrap_or(&0)) as i32)
         .sum()
 }
 
