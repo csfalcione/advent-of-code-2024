@@ -1,10 +1,11 @@
 #![allow(dead_code)]
 
 mod day1;
+mod day2;
 
 fn main() -> Result<(), String> {
-    let filename = "src/day1/input";
-    let (left_list, right_list) = day1::read_input(filename)?;
-    println!("{}", day1::solve_part_2(left_list, right_list));
+    let filename = "src/day2/input";
+    let reports = day2::read_input(filename)?;
+    println!("{}", day2::solve_part_1(reports));
     Ok(())
 }
